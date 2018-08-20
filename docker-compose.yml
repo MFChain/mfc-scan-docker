@@ -1,0 +1,39 @@
+version: "3"
+services:
+  mfc-scan:
+    image: mfchain/mfc-scan:latest
+    container_name: "mfc-scan"
+    ports:
+      - 4000:4000
+    links:
+      - postgresql:postgres
+      - mfc-privnet:20333
+      - mfc-privnet:20334
+      - mfc-privnet:20335
+      - mfc-privnet:20336
+      - mfc-privnet:30333
+      - mfc-privnet:30334
+      - mfc-privnet:30335
+      - mfc-privnet:30336
+    depends_on:
+      - postgresql
+      - mfc-privnet
+  postgresql:
+    image: postgres:10.1
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  mfc-privnet:
+    image: mfchain/mfc-privnet
+    container_name: "mfc-privnet"
+    ports:
+      - 20333:20333
+      - 20334:20334
+      - 20335:20335
+      - 20336:20336
+      - 30333:30333
+      - 30334:30334
+      - 30335:30335
+      - 30336:30336
